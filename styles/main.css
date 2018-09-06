@@ -151,6 +151,19 @@ ul {
 	content: '\e810'
 }
 
+
+.icon-bilibili:before{
+	content: '  ';
+}
+
+.icon-bilibili{
+	display: inline-block;
+	background-image: url(http://static.hdslb.com/images/base/icons.png);
+	background-position: -850px -81px;
+	
+}
+
+
 header {
 	position: fixed;
 	z-index: 20;
@@ -351,7 +364,7 @@ header nav a {
 
 #department ul li {
 	padding: 40px;
-	width: 230px;
+	width: 300px;
 	transition: box-shadow .3s
 }
 
@@ -694,7 +707,7 @@ footer .icon-heart {
 	font-size: 15px
 }
 
-.icon-footer,.icon-weibo {
+.icon-footer {
 	margin-right: 4px;
 	font-size: 1.2em;
 	color: #fff
