@@ -1,0 +1,99 @@
+<html style="font-size: 53.3333px;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta name="format-detection" content="telephone=no">
+    <title>签到成功</title>
+    <link rel="stylesheet" href="./seat.css">
+</head>
+
+<body>
+    <div id="sign_in_success" class="sign_suc">
+        <div class="sign_top">
+            <div class="sing_top_info">
+                <p class="sign_top_adr">西北大学图书馆 </p>
+                <h6 class="sign_top_time">08:00 - 12:30</h6>
+                <p class="sign_top_tip"></p>
+                <p class="sigin_top_name">张三</p>
+            </div>
+        </div>
+        <div class="sign_cont">
+            <p class="sign_type_icon"></p>
+            <h6 class="sign_cont_info">签到成功</h6>
+            <p class="sign_cont_time"></p>
+            <div class="sign_btn">我知道了</div>
+        </div>
+
+        <div id="volume-booster-visusalizer">
+            <div class="sound">
+                <div class="sound-icon"></div>
+                <div class="sound-wave sound-wave_one"></div>
+                <div class="sound-wave sound-wave_two"></div>
+                <div class="sound-wave sound-wave_three"></div>
+            </div>
+            <div class="segments-box">
+                <div data-range="1-20" class="segment"><span></span></div>
+                <div data-range="21-40" class="segment"><span></span></div>
+                <div data-range="41-60" class="segment"><span></span></div>
+                <div data-range="61-80" class="segment"><span></span></div>
+                <div data-range="81-100" class="segment"><span></span></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var cur_date = new Date();
+        var el_time = document.getElementsByClassName('sign_cont_time')[0]
+        el_time.textContent = cur_date.getHours() + ":" + cur_date.getMinutes();
+        
+        var el_date = document.getElementsByClassName('sign_top_tip')[0];
+        el_date.textContent = cur_date.toLocaleDateString();
+
+        is_during_date = function (beginDateStr, endDateStr) {
+            date_prefix = cur_date.toISOString().slice(0,10) + "T";
+            var beginDate = new Date(date_prefix + beginDateStr);
+            var endDate = new Date(date_prefix + endDateStr);
+            // console.log(beginDate, endDate);
+            if (cur_date >= beginDate && cur_date <= endDate) {
+                return true;
+            }
+            return false;
+        }
+
+        timedelta = [
+            ['08:00', '12:30'],
+            ['12:30', '14:00'],
+            ['14:00', '17:30'],
+            ['17:30', '18:30'],
+            ['18:30', '22:30'],
+        ]
+
+        var el_delta = document.getElementsByClassName('sign_top_time')[0];
+        for (delta of timedelta) {
+            if (is_during_date(delta[0], delta[1])) {
+                el_delta.textContent = delta[0] + " - " + delta[1];
+                break;
+            }
+        }
+
+        // Original post: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+        function getParameterByName(name, url = window.location.href) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        var n = getParameterByName('name');
+        console.log(n);
+        if (n !== null) {
+            var el_name = document.getElementsByClassName('sigin_top_name')[0];
+            el_name.textContent = n;
+        }
+        
+    </script>
+</body>
+
+</html>
