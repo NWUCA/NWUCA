@@ -42,9 +42,16 @@
         </div>
     </div>
     <script>
+        function pad(number) {
+            if (number < 10) {
+                return '0' + number;
+            }
+            return number;
+        }
+
         var cur_date = new Date();
         var el_time = document.getElementsByClassName('sign_cont_time')[0]
-        el_time.textContent = cur_date.getHours() + ":" + cur_date.getMinutes();
+        el_time.textContent = pad(cur_date.getHours()) + ":" + pad(cur_date.getMinutes());
         
         var el_date = document.getElementsByClassName('sign_top_tip')[0];
         el_date.textContent = cur_date.toLocaleDateString();
