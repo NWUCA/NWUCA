@@ -56,7 +56,7 @@
         var el_date = document.getElementsByClassName('sign_top_tip')[0];
         el_date.textContent = cur_date.toLocaleDateString();
 
-        is_during_date = function (beginDateStr, endDateStr) {
+        function is_during_date(beginDateStr, endDateStr) {
             date_prefix = cur_date.toISOString().slice(0,10) + "T";
             var beginDate = new Date(date_prefix + beginDateStr);
             var endDate = new Date(date_prefix + endDateStr);
