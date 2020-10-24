@@ -51,8 +51,8 @@
 
         function is_during_date(beginDateStr, endDateStr) {
             date_prefix = cur_date.toISOString().slice(0,10) + "T";
-            var beginDate = new Date(date_prefix + beginDateStr);
-            var endDate = new Date(date_prefix + endDateStr);
+            var beginDate = new Date(date_prefix + beginDateStr + "+08:00");
+            var endDate = new Date(date_prefix + endDateStr + "+08:00");
             // console.log(beginDate, endDate);
             if (cur_date >= beginDate && cur_date <= endDate) {
                 return true;
