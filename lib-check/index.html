@@ -6,6 +6,7 @@
     <meta name="format-detection" content="telephone=no">
     <title>签到成功</title>
     <link rel="stylesheet" href="./seat.css">
+    <script src="https://cdn.jsdelivr.net/npm/luxon@1.25.0/build/global/luxon.min.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126196845-4"></script>
     <script>
@@ -35,26 +36,21 @@
         </div>
     </div>
     <script>
-        function pad(number) {
-            if (number < 10) {
-                return '0' + number;
-            }
-            return number;
-        }
+        var DateTime = luxon.DateTime;
 
-        var cur_date = new Date();
+        var now = DateTime.local();
         var el_time = document.getElementsByClassName('sign_cont_time')[0]
-        el_time.textContent = pad(cur_date.getHours()) + ":" + pad(cur_date.getMinutes());
+        el_time.textContent = now.toFormat("T");
         
         var el_date = document.getElementsByClassName('sign_top_tip')[0];
-        el_date.textContent = cur_date.toLocaleDateString();
+        el_date.textContent = now.toFormat("D");
 
         function is_during_date(beginDateStr, endDateStr) {
-            date_prefix = cur_date.toISOString().slice(0,10) + "T";
-            var beginDate = new Date(date_prefix + beginDateStr + "+08:00");
-            var endDate = new Date(date_prefix + endDateStr + "+08:00");
+            date_prefix = now.toISODate() + "T";
+            var beginDate = DateTime.fromISO(date_prefix + beginDateStr)
+            var endDate = DateTime.fromISO(date_prefix + endDateStr)
             // console.log(beginDate, endDate);
-            if (cur_date >= beginDate && cur_date <= endDate) {
+            if (now >= beginDate && now <= endDate) {
                 return true;
             }
             return false;
@@ -87,8 +83,8 @@
         }
 
         var n = getParameterByName('name');
-        console.log(n);
-        if (n !== null) {
+        console.log("name=" + n);
+        if (n) {
             var el_name = document.getElementsByClassName('sigin_top_name')[0];
             el_name.textContent = n;
         }
